@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="\MagentoPlus\PluginInvestigation\Model\VirtualClassInterface" type="\MagentoPlus\PluginInvestigation\Model\VirtualClass"/>
+<type name="\Magento\Customer\Api\AddressRepositoryInterface">
+    <plugin name="deprecated_delete_address" type="MagentoPlus\PluginInvestigation\Plugin\AddressDefenderPlugin" sortOrder="20"/>
+    <plugin name="deprecated_delete_address_1" type="\MagentoPlus\PluginInvestigation\Plugin\AddressDefenderAnotherPlugin" sortOrder="300"/>
+</type>
+    <virtualType name="\MagentoPlus\VirtualClass" type="MagentoPlus\PluginInvestigation\Model\VirtualClass">
+        <arguments>
+            <argument name="name" xsi:type="string">virtual-class</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="\Test\VirtualType" type="\MagentoPlus\PluginInvestigation\Model\OriginalModel" shared="false">
+        <arguments>
+            <argument name="virtualClass" xsi:type="object">\MagentoPlus\VirtualClass</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="\Test\VirtualClassFactory" type="\MagentoPlus\PluginInvestigation\Model\OriginalModel">
+        <arguments>
+            <argument name="virtualClassFactory" xsi:type="object">\MagentoPlus\VirtualClassFactory</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="\Test\VirtualClassProxy" type="\MagentoPlus\PluginInvestigation\Model\OriginalModel">
+        <arguments>
+            <argument name="proxy" xsi:type="object">\MagentoPlus\VirtualClass\Proxy</argument>
+        </arguments>
+    </virtualType>
+    <type name="\MagentoPlus\PluginInvestigation\Model\OriginalModel">
+        <plugin name="firstPlugin" type="\MagentoPlus\PluginInvestigation\Plugin\AddressDefenderPlugin" sortOrder="10"/>
+    </type>
+
+    <type name="\MagentoPlus\PluginInvestigation\Plugin\AddressDefenderPlugin">
+        <plugin name="plugin-to-plugin" type="\MagentoPlus\PluginInvestigation\Plugin\PluginToPlugin" sortOrder="10" />
+    </type>
+</config>
